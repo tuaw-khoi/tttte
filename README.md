@@ -17,7 +17,7 @@ The system consists of three main components:
 - **Employee Management**: CRUD operations for employee records
 - **Attendance Tracking**: Monitor check-ins and check-outs
 - **Face Recognition**: Register and recognize employee faces
-- **Real-time Camera**: Webcam integration for face capture
+- **Real-time Camera**: Webcam integration for face captures
 - **Authentication**: JWT-based user authentication
 - **Responsive Design**: Mobile-first approach
 
