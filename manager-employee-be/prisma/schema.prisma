@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Bảng Users (tài khoản admin)
+model User {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  passwordHash String
+  email        String   @unique
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+}
+
+// Bảng Employees (nhân viên)
+model Employee {
+  id           String          @id @default(uuid())
+  fullName     String
+  email        String?         @unique
+  phoneNumber  String?
+  department   String?
+  position     String?
+  hireDate     DateTime?
+  createdAt    DateTime        @default(now())
+  faceEncodings FaceEncoding[]
+  attendances  Attendance[]
+}
+
+// Bảng FaceEncodings (mã hoá khuôn mặt)
+model FaceEncoding {
+  id         String   @id @default(uuid())
+  encoding   Bytes
+  createdAt  DateTime @default(now())
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employeeId String
+}
+
+// Bảng Attendances (chấm công)
+model Attendance {
+  id         String   @id @default(uuid())
+  checkIn    DateTime
+  checkOut   DateTime?
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employeeId String
+}

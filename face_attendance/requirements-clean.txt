@@ -1,0 +1,7 @@
+flask
+numpy
+opencv-python
+requests
+Pillow
+scikit-image
+scipy 
